@@ -1,7 +1,8 @@
 package edu.mswiate.lab9;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.json.*;
@@ -39,10 +40,11 @@ public class Sejm {
 		this.kadencja = kadencja;
 	}
 
-	public Collection<Posel> getPosels() {
-		return posels.values();
+	public List<Posel> getPosels() {
+		return new ArrayList<Posel>( posels.values() );
 	}
-
+	
+	//JSONObject sejm contains kadencja and list of JSONObject posels
 	public JSONObject toJson(){
 		JSONObject sejm = new JSONObject().put("kadencja", kadencja);
 		

@@ -8,7 +8,7 @@ public class DataReader {
 	public DataReader(){
 		
 	}
-	
+	//reads all from the buffered reader
 	public String readAll(BufferedReader br) throws IOException {
 		
 		StringBuilder text = new StringBuilder(); 

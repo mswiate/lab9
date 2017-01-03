@@ -5,6 +5,7 @@ import org.json.*;
 public class Posel {
 	private static final String smallExpensesString = "Koszty drobnych napraw i remontów lokalu biura poselskiego";
 	private static final String italyString = "IT";
+	
 	private int id;
 	private String name;
 	private double expenseSum;
@@ -16,12 +17,12 @@ public class Posel {
 	
 	private boolean updated;
 	
-
+	//constructor for downloading sejm
 	public Posel(int id, String name) {
 		this.id = id;
 		this.name = name;
 	}
-
+	//constructor for reading object from file
 	public Posel(int id, String name, double expenseSum, double smallExpenses, int numberOfAbroadTrips, int daysAbroad,
 			boolean beenInItaly, double mostExpensiveTrip) {
 		this.id = id;
@@ -47,6 +48,9 @@ public class Posel {
 		return obj;
 	}
 	
+	/*
+	 * setters are used to download info about separate posel
+	 */
 
 	public void setExpenseSum(JSONObject jsonPosel) {
 		double sum = 0.0; 
@@ -54,11 +58,14 @@ public class Posel {
 		JSONArray years = jsonPosel.getJSONObject("layers")
 								  .getJSONObject("wydatki")
 								  .getJSONArray("roczniki");
+		
+		//if there is no expense layer
 		if(years.length() < 1){
 			this.expenseSum = 0.0;
 			return;
 		}
 		
+		//summing each expense separately
 		for(int i = 0 ; i < years.length()  ; ++i){
 			JSONArray expenses = years.getJSONObject(i).getJSONArray("pola");
 			
@@ -74,20 +81,23 @@ public class Posel {
 	public void setSmallExpenses(JSONObject jsonPosel) {
 		double sum = 0.0; 
 		
-		//znajduje punkt z ktorego ma odczytac pieniadze wydane na drobne naprawy
+		//finding point for small expenses
 		JSONArray points = jsonPosel.getJSONObject("layers")
 				  					.getJSONObject("wydatki")
 				  					.getJSONArray("punkty");
+		//if there is no expense layer
 		if(points.length() < 1){
 			this.smallExpenses = 0.0;
 			return;
 		}
 		
+		//neutral value
 		int point = -1;
 		for(int i = 0; i < points.length() ; ++i)
 			if( points.getJSONObject(i).getString( "tytul" ).equals( smallExpensesString ) )
 				point = points.getJSONObject(i).getInt("numer") - 1 ;
 		
+		//if it cannot find a point for small expenses
 		if(point == -1){
 			this.smallExpenses = 0.0;
 			return;
@@ -97,6 +107,7 @@ public class Posel {
 								  .getJSONObject("wydatki")
 								  .getJSONArray("roczniki");
 		
+		// summing expenses for each year
 		for(int i = 0 ; i < years.length() ; ++i)
 			sum += years.getJSONObject(i).getJSONArray("pola").getDouble(point);
 		
@@ -120,7 +131,7 @@ public class Posel {
 		
 			this.daysAbroad = days;
 		}
-		catch(JSONException ex){
+		catch(JSONException ex){//if there is no trips layer
 			this.daysAbroad = 0;
 		}
 	}
@@ -139,7 +150,7 @@ public class Posel {
 		
 			this.beenInItaly = been;
 		}
-		catch(JSONException ex){
+		catch(JSONException ex){//if there is no trips layer
 			this.beenInItaly = false;
 		}
 	}
@@ -156,11 +167,12 @@ public class Posel {
 		
 			this.mostExpensiveTrip = maxCost;
 		}
-		catch(JSONException ex){
+		catch(JSONException ex){//if there is no trips layer
 			this.mostExpensiveTrip = 0.0;
 		}
 	}
 	
+	//used to find out if there was any problem updating posel
 	public void setUpdated(boolean updated) {
 		this.updated = updated;
 	}

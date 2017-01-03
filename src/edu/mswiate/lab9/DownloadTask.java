@@ -13,8 +13,7 @@ public class DownloadTask implements Runnable {
 	
 	public DownloadTask(String url, Posel posel){
 		this.url = url;
-		this.posel = posel;
-		
+		this.posel = posel;	
 	}
 	
 	@Override
@@ -29,10 +28,14 @@ public class DownloadTask implements Runnable {
 			posel.setUpdated(false);
 			return;
 		}
+		
+		//if there is json for posel
 		if(jsonPosel.has("name") && jsonPosel.getString("name").equals("Not Found") ){
 			posel.setUpdated(false);
 			return;
 		}
+		
+		//sets info about posel
 		posel.setBeenInItaly(jsonPosel);
 		posel.setDaysAbroad(jsonPosel);
 		posel.setExpenseSum(jsonPosel);

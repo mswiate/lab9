@@ -6,8 +6,7 @@ import java.io.IOException;
 public class Main {
 
 	public static void main(String[] args)  {
-		// TODO Auto-generated method stub
-		
+	
 		try{
 			ArgumentsParser ap = new ArgumentsParser();
 			String option = ap.parseOption(args);

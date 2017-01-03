@@ -17,9 +17,12 @@ public class ArgumentsParser {
 	}
 	
 	public String parseOption(String[] args){
+		
 		if(args.length < 1)
 			throw new IllegalArgumentException("U¿yj argumentu help aby dowiedzieæ siê o mo¿liwych argumentach");
+		
 		String option = args[0];
+		
 		switch(option){
 		case "1": case "2" :
 			if(args.length != 3)
@@ -37,13 +40,14 @@ public class ArgumentsParser {
 			if(args.length != 1)
 				throw new IllegalArgumentException("niepoprawna liczba argumentow");
 			return helpString;
+			
 		case "update":
 			if(args.length != 1)
 				throw new IllegalArgumentException("niepoprawna liczba argumentow");
 			return option;
 			
 		default:
-			throw new IllegalArgumentException("Niepoprawny argument:" + args[0]);
+			throw new IllegalArgumentException("Niepoprawny argument opcji:" + args[0]);
 			
 		}
 	}
@@ -51,6 +55,7 @@ public class ArgumentsParser {
 	public int parseKadencja(String[] args){
 		if( !args[1].equals("7") && !args[1].equals("8") )
 			throw new IllegalArgumentException("kadencja powinna byc cyfra: 7 lub 8");
+		
 		return Integer.parseInt(args[1]);
 	}
 	
