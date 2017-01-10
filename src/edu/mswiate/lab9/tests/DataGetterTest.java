@@ -37,7 +37,7 @@ public class DataGetterTest {
 	@Test
 	public void testAverageExpenses() {
 		try{
-			assertEquals(new DataGetter().averageExpenses(7), "272577,22" );
+			assertEquals(new DataGetter().averageExpenses(8), "144882,96" );
 		}
 		catch(Exception ex){
 			
