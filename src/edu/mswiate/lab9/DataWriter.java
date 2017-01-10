@@ -20,7 +20,7 @@ public class DataWriter {
 		sejmometr.put("kadencjas",sejms);
 		
 		try (FileWriter file = new FileWriter(filePath)) {
-			file.write(sejmometr.toString(1));
+			file.write(sejmometr.toString());
 		}
 	}
 	

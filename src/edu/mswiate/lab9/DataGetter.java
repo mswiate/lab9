@@ -28,12 +28,12 @@ public class DataGetter {
 		Sejm sejm = new JsonParser().parse(kadencja);
 		
 		int numberOfPosels = sejm.getNumberOfPosels();
-		
+	
 		double sum = 0.0;
 		for(Posel posel: sejm.getPosels()){
 			sum += posel.getExpenseSum();
 		}
-		
+
 		return String.valueOf( df.format( sum / (double) numberOfPosels ) );
 	}
 	
